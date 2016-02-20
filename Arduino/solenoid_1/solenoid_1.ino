@@ -1,12 +1,12 @@
 /**
-* Get a character between A-H and trigger a solenoid
+* Get a character between A-F and trigger a solenoid
 * Change values in noteDuration array to change the 'lenght' 
 **/
 
 
-int pins[] = {6,7,8,9,10,11,12,13};
-int pinCount = 8;
-int noteDuration[] = {50, 50, 50, 50, 50, 50, 50, 50};
+int pins[] = {8,9,10,11,12,13};
+int pinCount = 6;
+int noteDuration[] = {50, 50, 50, 50, 50, 50};
 long endTimes[] = {0,0,0,0,0,0,0,0};
 
 unsigned long time;
@@ -35,7 +35,7 @@ void loop() {
 void processSerial() {
   char input = Serial.read();
   int value = charToInt(input);
-  if (0 <= value && value < 8) {
+  if (0 <= value && value < 6) {
     digitalWrite(pins[value], LOW);
     endTimes[value] = millis() + noteDuration[value];
   } else {

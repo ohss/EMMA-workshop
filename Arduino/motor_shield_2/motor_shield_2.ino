@@ -1,8 +1,13 @@
+/**
+* Get a character between R-V and trigger a solenoid
+* Change values in noteDuration array to change the 'lenght' 
+**/
+
 #include <AFMotor.h>
 #include <Servo.h> 
 
-int noteDuration[] = {50, 50, 50, 50};
-unsigned long endTimes[] = {0,0,0,0};
+int noteDuration[] = {500, 500, 500};
+unsigned long endTimes[] = {0,0,0};
 unsigned long time;
 
 // Two servos (not continuous rotation)
@@ -11,12 +16,11 @@ Servo servo2;
 int servoAngles[] = {0, 0};
 Servo servos[] = {servo1, servo2};
 
-// 4 DC motors
+// 3 DC motors
 AF_DCMotor motor1(1);
 AF_DCMotor motor2(2);
 AF_DCMotor motor3(3);
-AF_DCMotor motor4(4);
-AF_DCMotor motors[] = {motor1, motor2, motor3, motor4};
+AF_DCMotor motors[] = {motor1, motor2, motor3};
 
 void setup() {
   Serial.begin(9600);
@@ -27,7 +31,6 @@ void setup() {
   motor1.setSpeed(255);
   motor2.setSpeed(255);
   motor3.setSpeed(255);
-  motor4.setSpeed(255);
 }
 
 void loop() {
@@ -36,7 +39,7 @@ void loop() {
   }
   
   time = millis();
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 3; i++) {
     if (time > endTimes[i]) {
       motors[i].run(RELEASE);
     }
@@ -47,9 +50,9 @@ void processSerial() {
   char input = Serial.read();
   int value = charToInt(input);
   if (0 <= value && value < 2) {
-    servoAngles[value] = (servoAngles[value] == 0) ? 180 : 0; 
+    servoAngles[value] = (servoAngles[value] == 0) ? 170 : 0; 
     servos[value].write(servoAngles[value]);
-  } else if (2 <= value && value < 6) {
+  } else if (2 <= value && value < 5) {
     value = value - 2;
     motors[value].run(FORWARD);
     endTimes[value] = millis() + noteDuration[value];
@@ -59,6 +62,6 @@ void processSerial() {
 }
 
 int charToInt(char c) {
-  return (int)c - 81; // https://www.arduino.cc/en/Reference/ASCIIchart
+  return (int)c - 82; // https://www.arduino.cc/en/Reference/ASCIIchart
 }
 

@@ -1,66 +1,67 @@
+/**
+* Get a character between M-Q and trigger a solenoid
+* Change values in noteDuration array to change the 'lenght' 
+**/
+
 #include <AFMotor.h>
 #include <Servo.h> 
- 
-Servo servo1;  
-Servo servo2;  
 
-int pos1;
-int pos2;
-
-static char servo1Id = 'Q';
-static char servo2Id = 'R';
+int noteDuration[] = {500, 500, 500, 500};
+unsigned long endTimes[] = {0,0,0,0};
 unsigned long time;
-unsigned long endTime1;
-unsigned long endTime2;
-const long duration1 = 250;
-const long duration2 = 250;
-const int servo1Rest = 90;
-const int servo2Rest = 90;
+
+// Two servos (not continuous rotation)
+Servo servo1;  
+Servo servo2;
+int servoAngles[] = {0, 0};
+Servo servos[] = {servo1, servo2};
+
+// 3 DC motors
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(2);
+AF_DCMotor motor3(3);
+AF_DCMotor motors[] = {motor1, motor2, motor3};
 
 void setup() {
+  Serial.begin(9600);
   servo1.attach(9);
   servo2.attach(10);
-  Serial.begin(9600);
-  endTime1 = millis();
-  endTime2 = millis();
+  servo1.write(0);
+  servo2.write(0);
+  motor1.setSpeed(255);
+  motor2.setSpeed(255);
+  motor3.setSpeed(255);
 }
 
 void loop() {
-
-  time = millis();
   while (Serial.available()) {
     processSerial();
   }
-
-  if (time > endTime1) {
-    servo1.write(servo1Rest); 
+  
+  time = millis();
+  for (int i = 0; i < 3; i++) {
+    if (time > endTimes[i]) {
+      motors[i].run(RELEASE);
+    }
   }
-
-  if (time > endTime2) {
-    servo2.write(servo2Rest); 
-  }  
-
-  /*
-  delay(1000);
-  servo2.write(140);
-  delay(1000);
-  servo1.write(40);
-  delay(1000);
-  */
 }
 
 void processSerial() {
-
-  char value = Serial.read();
-  if (value == servo1Id) {
-    servo1.write(0); 
-    endTime1 = millis() + duration1;
-  } else if (value == servo2Id) {
-    servo2.write(0);
-    endTime2 = millis() + duration2;
+  char input = Serial.read();
+  int value = charToInt(input);
+  if (0 <= value && value < 2) {
+    servoAngles[value] = (servoAngles[value] == 0) ? 170 : 0; 
+    servos[value].write(servoAngles[value]);
+  } else if (2 <= value && value < 5) {
+    value = value - 2;
+    motors[value].run(FORWARD);
+    endTimes[value] = millis() + noteDuration[value];
   } else {
-    Serial.write(value);
-    Serial.print(value);
-  }
+    Serial.write(input);
+  }   
+}
+
+int charToInt(char c) {
+  return (int)c - 77; // https://www.arduino.cc/en/Reference/ASCIIchart
 }
 
