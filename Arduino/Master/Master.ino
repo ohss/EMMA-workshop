@@ -8,28 +8,28 @@ unsigned long duration = 200;
 
 char solenoid1Messages[] = {'A', 'B', 'C', 'D', 'E', 'F'};
 char solenoid2Messages[] = {'G', 'H', 'I', 'J', 'K', 'L'};
-char motor1Messages[] = {'M', 'N', 'O', 'P', 'Q'};
-char motor2Messages[] = {'R', 'S', 'T', 'U', 'V'};
+char dc1Messages[] = {'O', 'P', 'Q'};
+char dc2Messages[] = {'T', 'U', 'V'};
+char servo1Messages[] = {'M', 'N'};
+char servo2Messages[] = {'R', 'S'};
 
-int click = 2;
+int click = 5;
 int clickTime = 100;
 int lastClick = 0;
 
-int tempoPin = A0;
+int tempoPin = A2;
 int tempo = 0;
 int lastTempo = 0;
 
-int solenoid1Button = 3;
-int solenoid2Button = 4;
-int motor1Button = 5;
-int motor2Button = 6;
-int resetButton = 7;
+int solenoid1Button = 2;
+int solenoid2Button = 3;
+int dcPin = A1;
+int servoPin = A0;
+int resetButton = 4;
 
 void setup() {
   pinMode(solenoid1Button, INPUT_PULLUP);
   pinMode(solenoid2Button, INPUT_PULLUP);
-  pinMode(motor1Button, INPUT_PULLUP);
-  pinMode(motor2Button, INPUT_PULLUP);
   pinMode(resetButton, INPUT_PULLUP);
   pinMode(click, OUTPUT);
   
@@ -52,18 +52,28 @@ void loop() {
     sendCtrlMessage(solenoid2Messages[random(sizeof(solenoid2Messages))], 1);
   }
   
-  if (digitalRead(motor1Button) == LOW && nextPressTime[2] < time) {
-    sendCtrlMessage(motor1Messages[random(sizeof(motor1Messages))], 2);
+  if (nextPressTime[2] < time) {
+    int dcValue = analogRead(dcPin);
+    if (dcValue < 10) {
+      sendCtrlMessage(dc1Messages[random(sizeof(dc1Messages))], 2);
+    } else if (dcValue > 1013) {
+      sendCtrlMessage(dc2Messages[random(sizeof(dc2Messages))], 2);
+    }
   }
   
-  if (digitalRead(motor2Button) == LOW && nextPressTime[3] < time) {
-    sendCtrlMessage(motor2Messages[random(sizeof(motor2Messages))], 3);
+   if (nextPressTime[3] < time) {
+    int servoValue = analogRead(servoPin);
+    if (servoValue < 10) {
+      sendCtrlMessage(servo1Messages[random(sizeof(servo1Messages))], 3);
+    } else if (servoValue > 1013) {
+      sendCtrlMessage(servo2Messages[random(sizeof(servo2Messages))], 3);
+    }
   }
   
   if (digitalRead(resetButton) == LOW && nextPressTime[4] < time) {
     Serial.print('W');
     nextPressTime[4] = time + duration;
-  }A
+  }
 
   while (Serial.available()) {
     char value = Serial.read();
