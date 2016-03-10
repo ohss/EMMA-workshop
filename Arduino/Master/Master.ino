@@ -6,8 +6,8 @@ unsigned long time;
 unsigned long nextPressTime[amountOfButtons];
 unsigned long duration = 200;
 
-char solenoid1Messages[] = {'A', 'B', 'C', 'D', 'E', 'F'};
-char solenoid2Messages[] = {'G', 'H', 'I', 'J', 'K', 'L'};
+char solenoid2Messages[] = {'A', 'B', 'C', 'E', 'F'};
+char solenoid1Messages[] = {'G', 'H', 'I', 'J', 'K', 'L'};
 char dc1Messages[] = {'O', 'P', 'Q'};
 char dc2Messages[] = {'T', 'U', 'V'};
 char servo1Messages[] = {'M', 'N'};
