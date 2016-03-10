@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Sound Sculpture - Mehackit Art Hack at EMMA</title>
+
+		<meta name="description" content="Sound Sculpture - Created at Mehackit Art Hack at Espoo Museum of Modern Art">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				
+				<section>
+					<img src="poster.jpg">
+				</section>
+
+				<section>
+					<img src="arthack.jpg">
+					<small>Kuva:Ella Tommila / EMMA</small>
+				</section>
+
+				<section>
+					<img src="soundsculpture.jpg">
+					<small>Kuva:Ella Tommila / EMMA</small>
+				</section>
+
+				<section>
+					<iframe src="https://player.vimeo.com/video/158470330?byline=0" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				</section>
+
+				<section>
+					<iframe src="https://player.vimeo.com/video/158471174?byline=0" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				</section>
+
+				<section>
+					<h3>Kiitos:</h3>
+					<ul>
+					<li>EMMA, Reetta Kalajo ja Iia Palovaara</li>
+					<li>Henrietta Kekäläinen, Juho Kokkola, Ossi Rautalahti, Katriina Haikala ja Vilma Metteri</li>
+					<li>Tommi Koskinen, Salla Salin, Tomas De Rita</li>
+					<li>Työpajoihin osallistujat</li>
+					</ul>
+
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
