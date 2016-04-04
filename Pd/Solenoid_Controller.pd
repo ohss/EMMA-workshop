@@ -1,4 +1,4 @@
-#N canvas 0 51 1265 723 10;
+#N canvas 65 82 1265 723 10;
 #X obj 99 64 print;
 #X msg 55 19 devices;
 #X floatatom 18 63 5 0 0 0 - - -;
@@ -613,9 +613,8 @@
 #X connect 261 0 263 0;
 #X connect 264 0 279 0;
 #X connect 265 0 267 0;
-#X connect 267 0 268 0;
+#X connect 267 0 271 0;
 #X connect 268 0 269 0;
-#X connect 269 0 270 0;
 #X connect 270 0 271 0;
 #X connect 271 0 272 0;
 #X connect 273 0 159 0;
